@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import firebase from 'firebase';
 
 import * as config from '../firebase.json';
+import LibraryList from './components/LibraryList';
 import {
   Header,
   Spinner,
   CustomButton,
   Card,
   CardSection
-} from './components/Main/';
-import LoginForm from './screens/LoginForm/';
+} from './components/Main';
+import LoginForm from './screens/LoginForm';
+import rootReducer from './store/reducers';
 
 class App extends Component {
   state = { isLoggedIn: null };
@@ -36,6 +40,7 @@ class App extends Component {
                 buttonText={'SignOut'}
               />
             </CardSection>
+            <LibraryList />
           </Card>
         );
       case false:
@@ -47,10 +52,12 @@ class App extends Component {
 
   render() {
     return (
-      <View>
-        <Header headerText={'Lexus Leaders 2019'} />
-        <View style={{ marginTop: 50 }}>{this.renderContent()}</View>
-      </View>
+      <Provider store={createStore(rootReducer)}>
+        <View>
+          <Header headerText={'Lexus Leaders 2019'} />
+          <View style={{ marginTop: 50 }}>{this.renderContent()}</View>
+        </View>
+      </Provider>
     );
   }
 }
