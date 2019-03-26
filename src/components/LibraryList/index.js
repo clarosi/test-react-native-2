@@ -1,27 +1,39 @@
-import React, { PureComponent } from 'react';
-import { FlatList } from 'react-native';
+import React, { Component } from 'react';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { ListItem } from '../Main';
+import ListItem from '../ListItem';
+import { selectLibrary } from '../../store/actions';
 
-class LibraryList extends PureComponent {
-  renderLibraryList = () => {
-    return this.props.libraries.map(library => <ListItem library={library} />);
+class LibraryList extends Component {
+  setLibraryId = id => {
+    this.props.dispatch(selectLibrary(id));
   };
 
   render() {
     return (
-      <FlatList
-        data={this.props.libraries}
-        renderItem={this.renderLibraryList}
-        keyExtractor={library => library.id}
-      />
+      <View>
+        <FlatList
+          data={this.props.libraries}
+          renderItem={({ item }) => (
+            <ListItem
+              library={item}
+              setLibraryId={id => this.setLibraryId(id)}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </View>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { libraries: state.libraries };
+  const { librariesReducer } = state;
+  return {
+    libraries: librariesReducer.libraries,
+    libraryId: librariesReducer.libraryId
+  };
 };
 
 export default connect(mapStateToProps)(LibraryList);

@@ -1,4 +1,4 @@
-import { DISPLAY_LIBRARIES, SELECT_LIBRARY } from './actionTypes';
+import { DISPLAY_LIBRARIES, SELECT_LIBRARY } from './types';
 
 export const diplayLibraries = () => {
   return {

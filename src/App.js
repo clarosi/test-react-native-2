@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import firebase from 'firebase';
 
 import * as config from '../firebase.json';
@@ -14,7 +13,7 @@ import {
   CardSection
 } from './components/Main';
 import LoginForm from './screens/LoginForm';
-import rootReducer from './store/reducers';
+import store from './store';
 
 class App extends Component {
   state = { isLoggedIn: null };
@@ -52,7 +51,7 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={createStore(rootReducer)}>
+      <Provider store={store}>
         <View>
           <Header headerText={'Lexus Leaders 2019'} />
           <View style={{ marginTop: 50 }}>{this.renderContent()}</View>

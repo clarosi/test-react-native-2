@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import firebase from 'firebase';
+
+import { emailChanged, passwordChanged, loginUser } from '../../store/actions';
 
 import {
   Card,
@@ -8,18 +11,16 @@ import {
   CustomButton,
   CustomTextInput,
   Spinner
-} from '../../components/Main/';
+} from '../../components/Main';
 
 class LoginForm extends Component {
   state = {
-    email: '',
-    password: '',
     error: '',
     isLoading: false
   };
 
   onSignInHandler = () => {
-    const { email, password } = this.state;
+    const { email, password } = this.props;
     this.setStateData('', true, null);
     firebase
       .auth()
@@ -70,20 +71,20 @@ class LoginForm extends Component {
         <CardSection>
           <CustomTextInput
             label={'Email'}
-            placeholder={'Enter email.'}
+            placeholder={'email@gmail.com'}
             autoCorrect={false}
-            value={this.state.email}
-            onChangeText={value => this.setState({ email: value })}
+            value={this.props.email}
+            onChangeText={value => this.props.emailChanged(value)}
           />
         </CardSection>
         <CardSection>
           <CustomTextInput
             secureTextEntry
             label={'Password'}
-            placeholder={'Enter password.'}
+            placeholder={'password.'}
             autoCorrect={false}
-            value={this.state.password}
-            onChangeText={value => this.setState({ password: value })}
+            value={this.props.password}
+            onChangeText={value => this.props.passwordChanged(value)}
           />
         </CardSection>
         <CardSection>{this.renderButton()}</CardSection>
@@ -102,4 +103,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginForm;
+const mapStateToProps = state => {
+  const { email, password } = state.auth;
+  return { email, password };
+};
+
+export default connect(
+  mapStateToProps,
+  { emailChanged, passwordChanged, loginUser }
+)(LoginForm);
