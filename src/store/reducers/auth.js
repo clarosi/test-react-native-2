@@ -17,30 +17,26 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case EMAIL_CHANGED:
-      return Object.assign({}, state, { email: action.value });
+      return Object.assign({}, state, { email: action.value, error: '' });
     case PASSWORD_CHANGED:
-      return Object.assign({}, state, { password: action.value });
+      return Object.assign({}, state, { password: action.value, error: '' });
     case LOGIN_USER_STARTS:
-      return Object.assign({}, state, {
-        loading: true,
-        error: '',
-        user: null
-      });
+      return Object.assign({}, state, setLoginState(true, '', null));
     case LOGIN_USER_SUCCESS:
-      return Object.assign({}, state, {
-        loading: false,
-        error: '',
-        user: action.user
-      });
+      return Object.assign({}, state, setLoginState(false, '', action.user));
     case LOGIN_USER_FAILED:
-      return Object.assign({}, state, {
-        loading: false,
-        error: action.error,
-        user: null
-      });
+      return Object.assign({}, state, setLoginState(false, action.error, null));
     default:
       return state;
   }
+};
+
+const setLoginState = (loading, error, user) => {
+  return {
+    loading,
+    error,
+    user
+  };
 };
 
 export default authReducer;

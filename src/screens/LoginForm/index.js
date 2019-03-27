@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 
 import { emailChanged, passwordChanged, loginUser } from '../../store/actions';
 
@@ -14,58 +13,28 @@ import {
 } from '../../components/Main';
 
 class LoginForm extends Component {
-  state = {
-    error: '',
-    isLoading: false
-  };
-
   onSignInHandler = () => {
     const { email, password } = this.props;
-    this.setStateData('', true, null);
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(res => {
-        this.setStateData('', false, res);
-        this.loginSuccess();
-      })
-      .catch(() => {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(res => {
-            this.setStateData('', false, res);
-            this.loginSuccess();
-          })
-          .catch(err => this.setStateData(err.message, false, err));
-      });
+    const loginData = { email, password };
+    this.props.loginUser(loginData);
   };
-
-  setStateData = (error, isLoading, data) => {
-    console.log(data);
-    this.setState({
-      error,
-      isLoading
-    });
-  };
-
-  loginSuccess = () => {};
 
   renderButton = () => {
-    if (this.state.isLoading) return <Spinner />;
+    const { loading } = this.props;
+    if (loading) return <Spinner />;
     return (
       <CustomButton onPress={this.onSignInHandler} buttonText={'SignIn'} />
     );
   };
 
   renderError = () => {
-    if (this.state.error) {
-      return <Text style={styles.textErrorStyle}>{this.state.error}</Text>;
-    }
+    const { error } = this.props;
+    if (error) return <Text style={styles.textErrorStyle}>{error}</Text>;
     return null;
   };
 
   render() {
+    const { email, password } = this.props;
     return (
       <Card>
         <CardSection>
@@ -73,7 +42,7 @@ class LoginForm extends Component {
             label={'Email'}
             placeholder={'email@gmail.com'}
             autoCorrect={false}
-            value={this.props.email}
+            value={email}
             onChangeText={value => this.props.emailChanged(value)}
           />
         </CardSection>
@@ -83,7 +52,7 @@ class LoginForm extends Component {
             label={'Password'}
             placeholder={'password.'}
             autoCorrect={false}
-            value={this.props.password}
+            value={password}
             onChangeText={value => this.props.passwordChanged(value)}
           />
         </CardSection>
@@ -104,8 +73,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { email, password } = state.auth;
-  return { email, password };
+  const { email, password, loading, error } = state.auth;
+  return { email, password, loading, error };
 };
 
 export default connect(
