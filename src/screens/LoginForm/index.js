@@ -40,7 +40,7 @@ class LoginForm extends Component {
         <CardSection>
           <CustomTextInput
             label={'Email'}
-            placeholder={'email@gmail.com'}
+            placeholder={'Enter email'}
             autoCorrect={false}
             value={email}
             onChangeText={value => this.props.emailChanged(value)}
@@ -50,7 +50,7 @@ class LoginForm extends Component {
           <CustomTextInput
             secureTextEntry
             label={'Password'}
-            placeholder={'password.'}
+            placeholder={'Enter password'}
             autoCorrect={false}
             value={password}
             onChangeText={value => this.props.passwordChanged(value)}

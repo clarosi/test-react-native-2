@@ -21,17 +21,17 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case PASSWORD_CHANGED:
       return Object.assign({}, state, { password: action.value, error: '' });
     case LOGIN_USER_STARTS:
-      return Object.assign({}, state, setLoginState(true, '', null));
+      return Object.assign({}, state, loginUser(true, '', null));
     case LOGIN_USER_SUCCESS:
-      return Object.assign({}, state, setLoginState(false, '', action.user));
+      return Object.assign({}, state, loginUser(false, '', action.user));
     case LOGIN_USER_FAILED:
-      return Object.assign({}, state, setLoginState(false, action.error, null));
+      return Object.assign({}, state, loginUser(false, action.error, null));
     default:
       return state;
   }
 };
 
-const setLoginState = (loading, error, user) => {
+const loginUser = (loading, error, user) => {
   return {
     loading,
     error,
