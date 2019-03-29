@@ -6,7 +6,8 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_STARTS,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILED
+  LOGIN_USER_FAILED,
+  INICIATE_LOGIN_USER
 } from './types';
 
 export const emailChanged = value => {
@@ -24,6 +25,14 @@ export const passwordChanged = value => {
 };
 
 export const loginUser = ({ email, password }) => {
+  // redux-saga;
+  // return {
+  //   type: INICIATE_LOGIN_USER,
+  //   email,
+  //   password
+  // };
+
+  // redux-thunk
   return dispatch => {
     dispatch({ type: LOGIN_USER_STARTS });
     firebase
