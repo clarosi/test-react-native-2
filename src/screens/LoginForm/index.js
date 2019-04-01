@@ -9,6 +9,7 @@ import {
   CardSection,
   CustomButton,
   CustomTextInput,
+  CustomImageBackground,
   Spinner
 } from '../../components/Main';
 
@@ -36,38 +37,40 @@ class LoginForm extends Component {
   render() {
     const { email, password } = this.props;
     return (
-      <Card>
-        <CardSection>
-          <CustomTextInput
-            label={'Email'}
-            placeholder={'Enter email'}
-            autoCorrect={false}
-            value={email}
-            onChangeText={value => this.props.emailChanged(value)}
-          />
-        </CardSection>
-        <CardSection>
-          <CustomTextInput
-            secureTextEntry
-            label={'Password'}
-            placeholder={'Enter password'}
-            autoCorrect={false}
-            value={password}
-            onChangeText={value => this.props.passwordChanged(value)}
-          />
-        </CardSection>
-        <CardSection>{this.renderButton()}</CardSection>
-        {this.renderError()}
-      </Card>
+      <CustomImageBackground>
+        <Card>
+          <CardSection>
+            <CustomTextInput
+              label={'Email'}
+              placeholder={'Enter email'}
+              autoCorrect={false}
+              value={email}
+              onChangeText={value => this.props.emailChanged(value)}
+            />
+          </CardSection>
+          <CardSection>
+            <CustomTextInput
+              secureTextEntry
+              label={'Password'}
+              placeholder={'Enter password'}
+              autoCorrect={false}
+              value={password}
+              onChangeText={value => this.props.passwordChanged(value)}
+            />
+          </CardSection>
+          <CardSection>{this.renderButton()}</CardSection>
+          <CardSection>{this.renderError()}</CardSection>
+        </Card>
+      </CustomImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
   textErrorStyle: {
+    flex: 1,
     marginTop: 20,
-    fontSize: 16,
-    alignSelf: 'center',
+    fontSize: 18,
     color: 'red'
   }
 });

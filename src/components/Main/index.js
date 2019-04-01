@@ -7,3 +7,4 @@ export * from '../Spinner';
 export * from '../CustomPicker';
 export * from '../EmployeeList';
 export * from '../ConfirmModal';
+export * from '../CustomImageBackground';

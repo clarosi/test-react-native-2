@@ -3,7 +3,11 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { fetchEmployees } from '../../store/actions';
-import { Spinner, Employeelist } from '../../components/Main';
+import {
+  Spinner,
+  Employeelist,
+  CustomImageBackground
+} from '../../components/Main';
 
 class Employee extends Component {
   componentWillMount() {
@@ -23,7 +27,11 @@ class Employee extends Component {
   };
 
   render() {
-    return <View style={{ marginTop: 50 }}>{this.renderEmployees()}</View>;
+    return (
+      <CustomImageBackground>
+        <View style={{ marginTop: 50 }}>{this.renderEmployees()}</View>
+      </CustomImageBackground>
+    );
   }
 }
 
