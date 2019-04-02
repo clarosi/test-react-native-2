@@ -14,10 +14,10 @@ const RouterComponent = () => {
       <Scene key={'root'} hideNavBar>
         <Scene
           initial
-          hideNavBar
           drawer
           key={'drawer'}
           contentComponent={Drawer}
+          drawerPosition={'right'}
           drawerWidth={200}
         >
           <Scene key={'auth'} initial>

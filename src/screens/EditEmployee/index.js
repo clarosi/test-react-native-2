@@ -63,10 +63,7 @@ class EditEmployee extends Component {
       return <Spinner />;
     }
     return (
-      <CustomButton
-        onPress={this.editEmployeeHandler}
-        buttonText={'Edit Employee'}
-      />
+      <CustomButton onPress={this.editEmployeeHandler} buttonText={'Edit'} />
     );
   };
 
@@ -76,13 +73,10 @@ class EditEmployee extends Component {
         <EmployeeForm {...this.props} />
         <CardSection>{this.renderButton()}</CardSection>
         <CardSection>
-          <CustomButton onPress={this.ediSmsHandler} buttonText={'Send SMS'} />
+          <CustomButton onPress={this.showModalHandler} buttonText={'Delete'} />
         </CardSection>
         <CardSection>
-          <CustomButton
-            onPress={this.showModalHandler}
-            buttonText={'Kick him'}
-          />
+          <CustomButton onPress={this.ediSmsHandler} buttonText={'Send SMS'} />
         </CardSection>
         <ConfirmModal
           onAccept={this.removeEmployeeHandler}
