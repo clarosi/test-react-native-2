@@ -8,3 +8,4 @@ export * from '../CustomPicker';
 export * from '../EmployeeList';
 export * from '../ConfirmModal';
 export * from '../CustomImageBackground';
+export * from '../Drawer';
